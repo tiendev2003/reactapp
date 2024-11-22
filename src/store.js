@@ -9,7 +9,7 @@ import goalSlice from "./features/goalSlice";
 import logoutReducer from './features/logoutSlice';
 import transactionSlice from "./features/transactionSlice";
 import { userSlice } from "./features/userSlice";
-
+import debtSlice from "./features/debtSlice";
 const persistConfig = {
     key: "paymint",
     storage,
@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
     transaction: transactionSlice.reducer,
     budget: budgetSlice.reducer,
     goal:goalSlice.reducer,
+    debt:debtSlice.reducer,
     logout: logoutReducer.reducer,
     [authApi.reducerPath]: authApi.reducer,
 });

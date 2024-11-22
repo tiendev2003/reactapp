@@ -1,57 +1,58 @@
 import {
   Box,
-  Text,
-  Navbar,
-  Menu,
-  NavLink,
   Button,
-  Avatar,
   Grid,
-  rem,
   Group,
+  Menu,
+  Navbar,
+  NavLink,
+  rem,
+  Text
 } from "@mantine/core";
-import { ReactComponent as DashboardIcon } from "../../assets/Widget.svg";
-import { ReactComponent as DashboardIconBlue } from "../../assets/Widget_Blue.svg";
+import React from "react";
+import { AddIcon } from "../../assets/assets";
+import { ReactComponent as DebtsIcon } from "../../assets/Calendar.svg";
+import { ReactComponent as AddDebtIcon } from "../../assets/Calendar_add_duotone.svg";
+import { ReactComponent as DebtsIconBlue } from "../../assets/Calendar_fill_Blue.svg";
 import { ReactComponent as TransactionsIcon } from "../../assets/Collapse.svg";
 import { ReactComponent as TransactionsIconBlue } from "../../assets/Collapse_Blue.svg";
+import { ReactComponent as AddTransactionIcon } from "../../assets/Collapse_light_duotone.svg";
 import { ReactComponent as AccountsIcon } from "../../assets/Database.svg";
+import { ReactComponent as AddAccountIcon } from "../../assets/Database_duotone.svg";
 import { ReactComponent as AccountsIconBlue } from "../../assets/Database_fill_Blue.svg";
 import { ReactComponent as BudgetIcon } from "../../assets/Date_range.svg";
 import { ReactComponent as BudgetIconBlue } from "../../assets/Date_range_Blue.svg";
-import { ReactComponent as GoalsIcon } from "../../assets/Road_finish.svg";
-import { ReactComponent as GoalsIconBlue } from "../../assets/Road_finish_Blue.svg";
-import { ReactComponent as DebtsIcon } from "../../assets/Calendar.svg";
-import { ReactComponent as DebtsIconBlue } from "../../assets/Calendar_fill_Blue.svg";
+import { ReactComponent as AddBudgetIcon } from "../../assets/Date_range_duotone.svg";
 import { ReactComponent as ReportsIcon } from "../../assets/Desk_alt.svg";
 import { ReactComponent as ReportsIconBlue } from "../../assets/Desk_alt_Blue.svg";
-import { AddIcon } from "../../assets/assets";
 import { ReactComponent as AddCategoryIcon } from "../../assets/Folder_add_duotone_line.svg";
-import { ReactComponent as AddDebtIcon } from "../../assets/Calendar_add_duotone.svg";
-import { ReactComponent as AddBudgetIcon } from "../../assets/Date_range_duotone.svg";
-import { ReactComponent as AddTransactionIcon } from "../../assets/Collapse_light_duotone.svg";
-import { ReactComponent as AddAccountIcon } from "../../assets/Database_duotone.svg";
+import { ReactComponent as GoalsIcon } from "../../assets/Road_finish.svg";
+import { ReactComponent as GoalsIconBlue } from "../../assets/Road_finish_Blue.svg";
 import { ReactComponent as AddGoalIcon } from "../../assets/Road_finish_duotone_line.svg";
 import { ReactComponent as AvatarIcon } from "../../assets/User_duotone.svg";
-import React from "react";
+import { ReactComponent as DashboardIcon } from "../../assets/Widget.svg";
+import { ReactComponent as DashboardIconBlue } from "../../assets/Widget_Blue.svg";
 
-import { useNavigate } from "react-router-dom";
-import CategoryForm from "../category/CategoryForm";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { closeAccountForm, showAccountForm } from "../../features/accountSlice";
+import { showBudgetForm } from "../../features/budgetSlice";
 import {
   closeCategoryForm,
   showCategoryForm,
 } from "../../features/categorySlice";
+import { closeDebtForm, showDebtForm } from "../../features/debtSlice";
+import { closeGoalForm, showGoalForm } from "../../features/goalSlice";
 import {
   closeTransactionForm,
   showTransactionForm,
 } from "../../features/transactionSlice";
-import { closeAccountForm, showAccountForm } from "../../features/accountSlice";
 import AccountForm from "../accounts/AccountForm";
-import TransactionForm from "../transactions/TransactionFrom";
 import BudgetForm from "../budget/BudgetForm";
-import { showBudgetForm } from "../../features/budgetSlice";
+import CategoryForm from "../category/CategoryForm";
+import DebtForm from "../debts/DebtForm";
 import GoalForm from "../goals/GoalForm";
-import { closeGoalForm, showGoalForm } from "../../features/goalSlice";
+import TransactionForm from "../transactions/TransactionFrom";
 
 export default function SideBar(props) {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ export default function SideBar(props) {
     (state) => state.budget.displayBudgetForm
   );
   const displayGoalForm = useSelector((state) => state.goal.displayGoalForm);
+  const displayDebtForm = useSelector((state) => state.debt.displayDebtForm);
   const currentUser = useSelector((state) => state.user.currentUser);
   function handleCategoryFormClose() {
     dispatch(closeCategoryForm());
@@ -82,6 +84,10 @@ export default function SideBar(props) {
 
   function handleBudgetFormClose() {
     dispatch(closeGoalForm());
+  }
+
+  function handleDebtFormClose() {
+    dispatch(closeDebtForm());
   }
 
   function navStyle() {
@@ -544,6 +550,7 @@ export default function SideBar(props) {
                     transition: "rotate-right",
                     duration: 150,
                   }}
+                  onClick={() => dispatch(showDebtForm())}
                 >
                   Add Debt
                 </Menu.Item>
@@ -564,7 +571,8 @@ export default function SideBar(props) {
           ></TransactionForm>
           <BudgetForm open={displayBudgetForm} close={handleBudgetFormClose} />
           <GoalForm open={displayGoalForm} close={handleBudgetFormClose} />
-        </Navbar.Section>
+          <DebtForm open={displayDebtForm} close={handleDebtFormClose} />
+         </Navbar.Section>
       </Navbar>
     </div>
   );

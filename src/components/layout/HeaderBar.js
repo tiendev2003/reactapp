@@ -13,10 +13,9 @@ import {
   Title,
   UnstyledButton,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetUserDetailsQuery } from "../../api/userService";
 import { AppLogo } from "../../assets/assets";
 import { ReactComponent as ExpandIcon } from "../../assets/Expand_down.svg";
 import { ReactComponent as LogoutIcon } from "../../assets/Sign_out_squre.svg";
@@ -28,8 +27,7 @@ import {
   closeSigninForm,
   closeSignupForm,
   openSigninForm,
-  openSignupForm,
-  setCredentials,
+  openSignupForm
 } from "../../features/userSlice";
 import ForgotPasswordForm from "../auth/ForgotPasswordForm";
 import SigninForm from "../auth/SigninForm";
@@ -74,14 +72,7 @@ export default function   HeaderBar(props) {
     navigate("/profile");
   }
  
-  // automatically authenticate user if token is found
-  const { data, isFetching } = useGetUserDetailsQuery('userDetails', {
-    pollingInterval: 900000, // 15mins
-  })
-
-  useEffect(() => {
-    if (data) dispatch(setCredentials(data))
-  }, [data, dispatch])
+ 
   return (
     <Box>
       <Header height={60} px="md">

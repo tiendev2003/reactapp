@@ -5,6 +5,7 @@ import { changeIsMobile } from "./features/userSlice";
 import AccountScreen from "./screens/AccountScreen";
 import BudgetScreen from "./screens/BudgetScreen";
 import DashboardScreen from "./screens/DashboardScreen";
+import DebtScreen from "./screens/DebtScreen";
 import GoalScreen from "./screens/GoalScreen";
 import LandingScreen from "./screens/LandingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -93,6 +94,14 @@ function App() {
           element={
             <RequireAuth>
               <BudgetScreen />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/debts"
+          element={
+            <RequireAuth>
+              <DebtScreen />
             </RequireAuth>
           }
         />
